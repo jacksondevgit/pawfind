@@ -5,7 +5,7 @@
 
       <q-item class="q-px-none q-py-lg">
         <q-item-section side>
-          <q-avatar rounded size="48px">
+          <q-avatar circle size="48px">
             <img src="https://cdn.quasar.dev/img/avatar.png" />
             <!-- <q-badge floating color="teal">new</q-badge> -->
           </q-avatar>
