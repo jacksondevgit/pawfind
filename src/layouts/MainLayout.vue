@@ -2,80 +2,36 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
-
         <q-toolbar-title> {{ $t('APP.TITLE') }} </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
-      <q-list>
-        <q-item-label header> Essential Links </q-item-label>
-
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
-
     <q-page-container>
       <router-view />
     </q-page-container>
+    <q-footer reveal class="q-mb-sm">
+      <div id="sticky-nav" class="text-center bg-primary text-black q-pa-sm">
+        <q-btn flat round dense icon="home" size="md" />
+        <q-btn flat round dense icon="message" size="md" class="q-ml-md" />
+        <q-btn round dense outline icon="add" size="lg" class="q-mx-md" />
+        <q-btn
+          flat
+          round
+          dense
+          icon="shopping_cart"
+          size="md"
+          class="q-mr-md"
+        />
+        <q-btn flat round dense icon="account_circle" size="md" />
+      </div>
+    </q-footer>
   </q-layout>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import EssentialLink, {
-  EssentialLinkProps,
-} from 'components/EssentialLink.vue';
-
 defineOptions({
   name: 'MainLayout',
 });
-
-const linksList: EssentialLinkProps[] = [
-  {
-    title: 'Home',
-    icon: 'home',
-    link: '/',
-  },
-  {
-    title: 'Message',
-    icon: 'mail',
-    link: '/message',
-  },
-  {
-    title: 'Post',
-    icon: 'message',
-    link: '/post',
-  },
-  {
-    title: 'Shop',
-    icon: 'shop',
-    link: '/shop',
-  },
-  {
-    title: 'Profile',
-    icon: 'account_circle',
-    link: '/profile',
-  },
-];
-
-const leftDrawerOpen = ref(false);
-
-function toggleLeftDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value;
-}
 </script>
