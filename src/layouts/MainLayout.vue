@@ -13,8 +13,16 @@
     </q-page-container>
     <q-footer reveal class="q-mb-sm">
       <div id="sticky-nav" class="text-center bg-primary text-black q-pa-sm">
-        <q-btn flat round dense icon="home" size="md" />
-        <q-btn flat round dense icon="message" size="md" class="q-ml-md" />
+        <q-btn flat round dense icon="home" size="md" to="/" />
+        <q-btn
+          flat
+          round
+          dense
+          icon="message"
+          size="md"
+          class="q-ml-md"
+          to="/message"
+        />
         <q-btn round dense outline icon="add" size="lg" class="q-mx-md" />
         <q-btn
           flat
@@ -23,8 +31,9 @@
           icon="shopping_cart"
           size="md"
           class="q-mr-md"
+          to="shop"
         />
-        <q-btn flat round dense icon="account_circle" size="md" />
+        <q-btn flat round dense icon="account_circle" size="md" to="account" />
       </div>
     </q-footer>
   </q-layout>
