@@ -2,7 +2,7 @@
   <q-layout view="lHh Lpr lFf">
     <q-page-container>
       <q-page class="row items-center justify-evenly bg-primary text-white"
-        ><div id="login-form-wrapper" class="col-12 text-center">
+        ><div class="col-12 text-center login-form-wrapper">
           <h3>PawFind</h3>
           <div class="row">
             <div class="col-12 q-mb-md">
@@ -32,10 +32,16 @@
                   /> </template
               ></q-input>
             </div>
+            <div class="col-12">
+              <q-btn label="Login" class="q-btn-fullwidth q-mt-md"></q-btn>
+            </div>
+            <div class="col-12 q-mt-md">
+              Don't have an account?
+              <router-link to="/register">Register now</router-link>
+            </div>
           </div>
         </div>
-        ></q-page
-      >
+      </q-page>
     </q-page-container>
   </q-layout>
 </template>
@@ -51,9 +57,3 @@ defineOptions({
   name: 'LoginPage',
 });
 </script>
-
-<style scoped>
-#login-form-wrapper {
-  padding: 0 5%;
-}
-</style>
