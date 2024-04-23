@@ -6,7 +6,7 @@
 import { ref, useAttrs } from 'vue';
 
 const attrs = useAttrs();
-const value = ref<string>();
+const value = ref<string | number>();
 </script>
 
 <style scoped></style>
