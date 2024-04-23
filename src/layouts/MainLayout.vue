@@ -40,6 +40,20 @@
 </template>
 
 <script setup lang="ts">
+import { useUserStore } from 'src/stores/user-store';
+import { computed, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+
+const UserStore = useUserStore();
+
+const isAuthorized = computed(() => UserStore.isAuthorized);
+
+onMounted(() => {
+  if (!isAuthorized.value) {
+    useRouter().replace('/login');
+  }
+});
+
 defineOptions({
   name: 'MainLayout',
 });

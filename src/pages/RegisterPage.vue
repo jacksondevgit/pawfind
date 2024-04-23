@@ -4,6 +4,7 @@
       <q-page class="row items-center justify-evenly bg-primary text-white"
         ><div class="col-12 text-center login-form-wrapper">
           <h3>PawFind</h3>
+          {{ UserStore.users }}
           <div class="row" v-if="isRegistered">
             <div class="col-12 bg-green">
               <p class="q-ma-none q-pa-lg">
@@ -56,9 +57,9 @@
             </div>
             <div class="col-12 q-mb-md">
               <FormInput
-                name="contactNo"
+                name="contactNumber"
                 label="Contact Number"
-                v-model="contactNo"
+                v-model="contactNumber"
                 type="text"
               ></FormInput>
             </div>
@@ -67,6 +68,7 @@
                 name="applicationId"
                 label="Application ID"
                 type="text"
+                v-model="applicationId"
               ></FormInput>
             </div>
             <div class="col-12 q-mb-md" v-if="userType === 'rescuer'">
@@ -74,6 +76,7 @@
                 name="organization"
                 label="Organization (optional)"
                 type="text"
+                v-model="organization"
               ></FormInput>
             </div>
             <div class="col-12 q-mb-md" v-if="userType === 'rescuer'">
@@ -81,20 +84,23 @@
                 name="yearsOfExperience"
                 label="Years of experience"
                 type="number"
+                v-model="yearsOfExperience"
               ></FormInput>
             </div>
             <div class="col-12 q-mb-md" v-if="userType === 'vet'">
               <FormInput
-                name="registrationNo"
+                name="registrationNumber"
                 label="Registration Number"
                 type="text"
+                v-model="registrationNumber"
               ></FormInput>
             </div>
             <div class="col-12 q-mb-md" v-if="userType === 'gov'">
               <FormInput
-                name="employeeNo"
+                name="employeeNumber"
                 label="Employee Number"
                 type="text"
+                v-model="employeeNumber"
               ></FormInput>
             </div>
             <div class="col-12 q-mb-md" v-if="userType === 'gov'">
@@ -102,6 +108,7 @@
                 name="department"
                 label="Department"
                 type="text"
+                v-model="department"
               ></FormInput>
             </div>
             <div class="col-12 q-mb-md">
@@ -120,7 +127,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useUserStore } from 'src/stores/user-store';
+import { User, useUserStore } from 'src/stores/user-store';
 
 import FormInput from 'src/components/FormInput.vue';
 import FormSelect from 'src/components/FormSelect.vue';
@@ -131,7 +138,14 @@ const userType = ref<string>();
 const email = ref<string>();
 const password = ref<string>();
 const fullname = ref<string>();
-const contactNo = ref<string>();
+const contactNumber = ref<string>();
+const applicationId = ref<string>();
+const organization = ref<string>();
+const yearsOfExperience = ref<number>();
+const registrationNumber = ref<string>();
+const employeeNumber = ref<string>();
+const department = ref<string>();
+
 const isRegistered = ref<boolean>(false);
 
 const userTypes = [
@@ -147,7 +161,20 @@ const registerForm = ref<QForm>();
 const register = () => {
   if (registerForm.value?.validate()) {
     isRegistered.value = true;
-    console.log(typeof UserStore);
+
+    UserStore.register({
+      userType: userType.value,
+      email: email.value,
+      password: password.value,
+      fullname: fullname.value,
+      contactNumber: contactNumber.value,
+      applicationId: applicationId.value,
+      organization: organization.value,
+      yearsOfExperience: yearsOfExperience.value,
+      registrationNumber: registrationNumber.value,
+      employeeNumber: employeeNumber.value,
+      department: department.value,
+    } as User);
     manualResetForm();
   }
 };
@@ -157,7 +184,7 @@ const manualResetForm = () => {
   email.value = '';
   password.value = '';
   fullname.value = '';
-  contactNo.value = '';
+  contactNumber.value = '';
 };
 
 defineOptions({

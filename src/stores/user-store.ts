@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
-type User = {
+export type User = {
   userType: string;
   email: string;
   password: string;
@@ -16,11 +16,14 @@ type User = {
 };
 
 export const useUserStore = defineStore('user', () => {
-  const users = ref<User[]>();
+  const users = ref<User[]>([]);
+  const isAuthorized = ref<boolean>(false);
+  const currentUser = ref<User>();
 
-  const addUser = (user: User): string | undefined => {
+  const register = (user: User): string | undefined => {
     // Check if the email already exists
     const existingUser = users.value?.find((u) => u.email === user.email);
+
     if (existingUser) {
       return 'User already exists';
     }
@@ -29,5 +32,19 @@ export const useUserStore = defineStore('user', () => {
     users.value?.push(user);
   };
 
-  return { users, addUser };
+  const login = (email: string, password: string): boolean => {
+    const user = users.value?.find(
+      (u) => u.email === email && u.password === password
+    );
+    if (user) {
+      isAuthorized.value = true;
+      currentUser.value = user;
+      return true;
+    } else {
+      isAuthorized.value = false;
+      return false;
+    }
+  };
+
+  return { users, register, isAuthorized, currentUser, login };
 });
