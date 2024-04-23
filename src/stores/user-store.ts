@@ -15,36 +15,40 @@ export type User = {
   department?: string;
 };
 
-export const useUserStore = defineStore('user', () => {
-  const users = ref<User[]>([]);
-  const isAuthorized = ref<boolean>(false);
-  const currentUser = ref<User>();
+export const useUserStore = defineStore(
+  'user',
+  () => {
+    const users = ref<User[]>([]);
+    const isAuthorized = ref<boolean>(false);
+    const currentUser = ref<User>();
 
-  const register = (user: User): string | undefined => {
-    // Check if the email already exists
-    const existingUser = users.value?.find((u) => u.email === user.email);
+    const register = (user: User): string | undefined => {
+      // Check if the email already exists
+      const existingUser = users.value?.find((u) => u.email === user.email);
 
-    if (existingUser) {
-      return 'User already exists';
-    }
+      if (existingUser) {
+        return 'User already exists';
+      }
 
-    // If the email does not exist, add the user
-    users.value?.push(user);
-  };
+      // If the email does not exist, add the user
+      users.value?.push(user);
+    };
 
-  const login = (email: string, password: string): boolean => {
-    const user = users.value?.find(
-      (u) => u.email === email && u.password === password
-    );
-    if (user) {
-      isAuthorized.value = true;
-      currentUser.value = user;
-      return true;
-    } else {
-      isAuthorized.value = false;
-      return false;
-    }
-  };
+    const login = (email: string, password: string): boolean => {
+      const user = users.value?.find(
+        (u) => u.email === email && u.password === password
+      );
+      if (user) {
+        isAuthorized.value = true;
+        currentUser.value = user;
+        return true;
+      } else {
+        isAuthorized.value = false;
+        return false;
+      }
+    };
 
-  return { users, register, isAuthorized, currentUser, login };
-});
+    return { users, register, isAuthorized, currentUser, login };
+  },
+  { persist: true }
+);
