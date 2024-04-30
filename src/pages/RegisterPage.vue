@@ -118,6 +118,10 @@
                 type="submit"
               ></q-btn>
             </div>
+            <div class="col-12">
+              Already have an account?
+              <router-link to="/">Login here</router-link>
+            </div>
           </q-form>
         </div>
       </q-page>

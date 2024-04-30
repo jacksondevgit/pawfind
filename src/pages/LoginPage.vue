@@ -4,7 +4,7 @@
       <q-page class="row items-center justify-evenly bg-primary text-white"
         ><div class="col-12 text-center login-form-wrapper">
           <h3>PawFind</h3>
-          {{ UserStore.users }}
+
           <div class="row" v-if="!isAuthenticated && isSubmitted">
             <div class="col-12 bg-red q-mb-lg">
               <p class="q-ma-none q-pa-lg">
