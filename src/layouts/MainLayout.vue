@@ -6,6 +6,30 @@
 
         <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
+      <!-- <q-toolbar>
+        <div style="flex: 1 1 0%; display: flex">
+          <q-btn square flat color="white" icon="west" />
+        </div>
+        <div
+          style="
+            flex: 1 1 0%;
+            text-align: right;
+            overflow: auto;
+            text-align: center;
+          "
+        >
+          <h5 class="q-ma-none">{{ pageTitle }}</h5>
+        </div>
+        <div
+          style="
+            flex: 1 1 0%;
+            text-align: right;
+            overflow: auto;
+            background-color: blue;
+            text-center
+          "
+        ></div>
+      </q-toolbar> -->
     </q-header>
 
     <q-page-container>
@@ -23,7 +47,15 @@
           class="q-ml-md"
           to="/message"
         />
-        <q-btn round dense outline icon="add" size="lg" class="q-mx-md" />
+        <q-btn
+          round
+          dense
+          outline
+          icon="add"
+          size="lg"
+          class="q-mx-md"
+          @click="toggleDialog = true"
+        />
         <q-btn
           flat
           round
@@ -36,17 +68,25 @@
         <q-btn flat round dense icon="account_circle" size="md" to="account" />
       </div>
     </q-footer>
+    <action-dialog
+      :show="toggleDialog"
+      @update:model-value="toggleDialog = false"
+    ></action-dialog>
   </q-layout>
 </template>
 
 <script setup lang="ts">
 import { useUserStore } from 'src/stores/user-store';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+
+import ActionDialog from 'src/components/ActionDialog.vue';
 
 const UserStore = useUserStore();
 
 const isAuthorized = computed(() => UserStore.isAuthorized);
+const toggleDialog = ref(false);
+// const pageTitle = useRouter().currentRoute.value.meta.title;
 
 onMounted(() => {
   if (!isAuthorized.value) {
