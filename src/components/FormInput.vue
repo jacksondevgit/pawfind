@@ -1,5 +1,11 @@
 <template>
-  <q-input :model-value="value" outlined filled v-bind="{ ...attrs }"></q-input>
+  <q-input
+    :model-value="value"
+    outlined
+    filled
+    v-bind="{ ...attrs }"
+    class="q-mb-md"
+  ></q-input>
 </template>
 
 <script setup lang="ts">

@@ -13,14 +13,12 @@
       </q-bar>
 
       <q-card-section>
-        <div class="text-h6">Alert</div>
-      </q-card-section>
-
-      <q-card-section class="q-pt-none">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-        repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis
-        perferendis totam, ea at omnis vel numquam exercitationem aut, natus
-        minima, porro labore.
+        <q-page-container
+          id="dialog-page-container"
+          class="row items-center justify-evenly q-pa-md q-mt-lg text-black"
+        >
+          <slot></slot>
+        </q-page-container>
       </q-card-section>
     </q-card>
   </q-dialog>
@@ -28,7 +26,6 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-
 const props = defineProps<{
   show: boolean;
   title?: string;
@@ -37,4 +34,9 @@ const props = defineProps<{
 const toggleDialog = computed(() => props.show);
 </script>
 
-<style scoped></style>
+<style scoped>
+:deep(#dialog-page-container.q-page-container) {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+</style>

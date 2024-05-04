@@ -54,7 +54,7 @@
           icon="add"
           size="lg"
           class="q-mx-md"
-          @click="toggleDialog = true"
+          @click="showActionDialog(CreatePost)"
         />
         <q-btn
           flat
@@ -71,22 +71,32 @@
     <action-dialog
       :show="toggleDialog"
       @update:model-value="toggleDialog = false"
-    ></action-dialog>
+    >
+      <component :is="toggleDialogContent"></component>
+    </action-dialog>
   </q-layout>
 </template>
 
 <script setup lang="ts">
 import { useUserStore } from 'src/stores/user-store';
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, shallowRef } from 'vue';
 import { useRouter } from 'vue-router';
 
 import ActionDialog from 'src/components/ActionDialog.vue';
+import CreatePost from 'src/pages/CreatePost.vue';
+
+// import ReadMessage from 'src/pages/ReadMessage.vue';
 
 const UserStore = useUserStore();
+const toggleDialog = ref(false);
+const toggleDialogContent = shallowRef();
 
 const isAuthorized = computed(() => UserStore.isAuthorized);
-const toggleDialog = ref(false);
-// const pageTitle = useRouter().currentRoute.value.meta.title;
+
+const showActionDialog = (component: unknown) => {
+  toggleDialogContent.value = component;
+  toggleDialog.value = true;
+};
 
 onMounted(() => {
   if (!isAuthorized.value) {
