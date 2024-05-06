@@ -7,7 +7,10 @@
           <FormInput v-model="search" label="Search"></FormInput>
         </div>
         <div class="col-1">
-          <q-btn icon="notifications"></q-btn>
+          <q-btn
+            icon="notifications"
+            @click="showActionDialog('Notifications', AppNotifications)"
+          ></q-btn>
         </div>
         <div class="col-3"></div>
       </q-toolbar>
@@ -67,6 +70,7 @@ import { useRouter } from 'vue-router';
 import FormInput from 'src/components/FormInput.vue';
 import ActionDialog from 'src/components/ActionDialog.vue';
 import CreatePost from 'src/pages/CreatePost.vue';
+import AppNotifications from 'src/pages/AppNotifications.vue';
 
 // import ReadMessage from 'src/pages/ReadMessage.vue';
 
