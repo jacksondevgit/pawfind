@@ -16,7 +16,7 @@
     <q-page-container>
       <router-view />
     </q-page-container>
-    <q-footer reveal class="q-mb-sm">
+    <q-footer class="q-mb-sm">
       <div id="sticky-nav" class="text-center bg-primary text-black q-pa-sm">
         <q-btn flat round dense icon="home" size="md" to="/" />
         <q-btn
