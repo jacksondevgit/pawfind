@@ -1,35 +1,16 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-toolbar-title> {{ $t('APP.TITLE') }} </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
+  <q-layout view="lHh Lpr lFf" class="bg-primary">
+    <q-header>
+      <q-toolbar class="row q-pt-md">
+        <div class="col-3"></div>
+        <div class="col-5">
+          <FormInput v-model="search" label="Search"></FormInput>
+        </div>
+        <div class="col-1">
+          <q-btn icon="notifications"></q-btn>
+        </div>
+        <div class="col-3"></div>
       </q-toolbar>
-      <!-- <q-toolbar>
-        <div style="flex: 1 1 0%; display: flex">
-          <q-btn square flat color="white" icon="west" />
-        </div>
-        <div
-          style="
-            flex: 1 1 0%;
-            text-align: right;
-            overflow: auto;
-            text-align: center;
-          "
-        >
-          <h5 class="q-ma-none">{{ pageTitle }}</h5>
-        </div>
-        <div
-          style="
-            flex: 1 1 0%;
-            text-align: right;
-            overflow: auto;
-            background-color: blue;
-            text-center
-          "
-        ></div>
-      </q-toolbar> -->
     </q-header>
 
     <q-page-container>
@@ -54,7 +35,7 @@
           icon="add"
           size="lg"
           class="q-mx-md"
-          @click="showActionDialog(CreatePost)"
+          @click="showActionDialog('Create Post', CreatePost)"
         />
         <q-btn
           flat
@@ -70,6 +51,7 @@
     </q-footer>
     <action-dialog
       :show="toggleDialog"
+      :title="toggleDialogTitle"
       @update:model-value="toggleDialog = false"
     >
       <component :is="toggleDialogContent"></component>
@@ -82,6 +64,7 @@ import { useUserStore } from 'src/stores/user-store';
 import { computed, onMounted, ref, shallowRef } from 'vue';
 import { useRouter } from 'vue-router';
 
+import FormInput from 'src/components/FormInput.vue';
 import ActionDialog from 'src/components/ActionDialog.vue';
 import CreatePost from 'src/pages/CreatePost.vue';
 
@@ -89,11 +72,14 @@ import CreatePost from 'src/pages/CreatePost.vue';
 
 const UserStore = useUserStore();
 const toggleDialog = ref(false);
+const toggleDialogTitle = ref('');
 const toggleDialogContent = shallowRef();
+const search = ref('');
 
 const isAuthorized = computed(() => UserStore.isAuthorized);
 
-const showActionDialog = (component: unknown) => {
+const showActionDialog = (title: string, component: unknown) => {
+  toggleDialogTitle.value = title;
   toggleDialogContent.value = component;
   toggleDialog.value = true;
 };

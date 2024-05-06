@@ -5,7 +5,7 @@
     size="sm"
     outline
     :label="props.label"
-    class="tag-btn q-mr-sm"
+    class="tag-btn q-mr-sm q-mt-sm"
   />
 </template>
 
