@@ -29,6 +29,18 @@ const routes: RouteRecordRaw[] = [
   },
   { path: '/login', component: () => import('pages/LoginPage.vue') },
   { path: '/register', component: () => import('pages/RegisterPage.vue') },
+  {
+    path: '/pet',
+    meta: { title: 'Pet - Mikmik' },
+    component: () => import('layouts/PetLayout.vue'),
+    children: [
+      {
+        path: '',
+        meta: { title: 'Pet - Mikmik' },
+        component: () => import('pages/PetPage.vue'),
+      },
+    ],
+  },
   // Always leave this as last one,
   // but you can also remove it
   {
